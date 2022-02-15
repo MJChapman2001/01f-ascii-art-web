@@ -19,15 +19,24 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 
 	path := "Banners/"+banner+".txt"
 	chars := functions.FileInit(path)
+	result := ""
 
-	result := functions.Transform(text, chars)
+	for i, j:= 0, 0; i < len(text); i++ {
+		if text[i] == '\r'{
+			result += functions.Transform(text[j:i], chars)
+			j = i + 2
+		} else if i == len(text)-1 {
+			result += functions.Transform(text[j:], chars)
+		}
+	}
+
 	fmt.Fprintf(w, result)
 }
 
 func main() {
 	fileServer := http.FileServer(http.Dir("./Static"))
 	http.Handle("/", fileServer)
-	http.Handle("/ascii-art", formHandler)
+	http.HandleFunc("/ascii-art", formHandler)
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
