@@ -8,8 +8,8 @@
 
 <body>
     <h1>Text Enlarger</h1>
-    <div>
-        <form method="POST" action="/ascii-art">
+    <div id="input-form">
+        <form method="POST" action="/">
             <label>Input</label><textarea name="input"></textarea>
             <p>Banner</p>
             <label>Shadow</label><input name="banner" type="radio" value="shadow" />
@@ -17,6 +17,9 @@
             <label>Thinkertoy</label><input name="banner" type="radio" value="thinkertoy" />
             <input type="submit" value="Submit" />
         </form>
+    </div>
+    <div id="output-text">
+        <textarea>{{ .Ltext }}</textarea>
     </div>
 </body>
 
