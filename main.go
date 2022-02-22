@@ -29,7 +29,7 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	
 		text := r.FormValue("input")
 		banner := r.FormValue("banner")
-	
+
 		path := "Banners/"+banner+".txt"
 		chars := functions.FileInit(path)
 	
