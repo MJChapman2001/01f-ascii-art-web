@@ -10,16 +10,30 @@ import (
 )
 
 type LargeText struct {
+	Input string
+	Banner string
 	Ltext string
 }
 
+var Tmpl = template.Must(template.ParseGlob("Templates/*.html"))
+
 func formHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./Templates/index.html"))
+
+	if r.URL.Path != "/" {
+		http.Error(w, "404 Status not found", http.StatusNotFound)
+		return
+	}
 
 	switch r.Method {
 	case "GET":
-		data := LargeText{Ltext: "Enter some text",}
-		tmpl.Execute(w, data)
+		var data LargeText
+		data.Input = ""
+		data.Banner = "standard"
+		data.Ltext = ""
+		if err := Tmpl.Execute(w, data); err != nil {
+			http.Error(w, "Internal Error", http.StatusInternalServerError)
+			return
+		}
 	case "POST":
 		result := ""
 		if err := r.ParseForm(); err != nil {
@@ -28,7 +42,12 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	
 		text := r.FormValue("input")
-		banner := r.FormValue("banner")
+		banner := r.FormValue("banners")
+
+		if text == "" || banner == "" {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
 
 		path := "Banners/"+banner+".txt"
 		chars := functions.FileInit(path)
@@ -42,8 +61,17 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		
-		data := LargeText{Ltext: result,}
-		tmpl.Execute(w, data)
+		var data LargeText
+		data.Input = text
+		data.Banner = banner
+		data.Ltext = result
+		if err := Tmpl.Execute(w, data); err != nil {
+			http.Error(w, "Internal Error", http.StatusInternalServerError)
+			return
+		}
+	default:
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
 	}
 }
 
