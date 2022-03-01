@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>Text Enlarger</title>
-  </head>
+    <link rel="stylesheet" href="/static/stylesheets/styles.css">
+</head>
 
-  <body>
-    <h1>Text Enlarger</h1>
-    <div id="input-form">
-      <form method="POST" action="/">
-        <label>Input</label><textarea name="input" placeholder="Enter some text" required>{{ .Input }}</textarea>
-        <br>
-        <label>Banner</label>
-        <select name="banners", id="banners" required>
+<body>
+
+    <div class="header">
+        <h1>Text Enlarger</h1>
+    </div>
+
+    <form class="form" method="POST" action="/">
+        <div class="input">
+            <label class="input-text">Input</label><textarea name="input" class="inputtext" placeholder="Enter some text" required>{{ .Input }}</textarea>
+        </div>
+
+        <div class="banner">
+            <label>Banner</label>
+            <select name="banners" , id="banners" required>
           <option value="standard" {{ if eq .Banner "standard" }}selected{{ end }}>Standard</option>
           <option value="shadow" {{ if eq .Banner "shadow" }}selected{{ end }}>Shadow</option>
           <option value="thinkertoy" {{ if eq .Banner "thinkertoy" }}selected{{ end }}>Thinkertoy</option>
         </select>
-        <br>
-        <input type="submit"></input>
-      </form>
-      <textarea>{{ .Ltext }}</textarea>
+            <input type="submit">
+            </input>
+        </div>
+    </form>
+
+    <div class="output">
+        <textarea>{{ .Ltext }}</textarea>
     </div>
-  </body>
+
+
+</body>
+
 </html>
