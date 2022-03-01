@@ -50,7 +50,11 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		path := "Banners/"+banner+".txt"
-		chars := functions.FileInit(path)
+		chars, err := functions.FileInit(path)
+		if err != nil {
+			http.Error(w, "Internal Error", http.StatusInternalServerError)
+			return
+		}
 	
 		for i, j:= 0, 0; i < len(text); i++ {
 			if text[i] == '\r'{

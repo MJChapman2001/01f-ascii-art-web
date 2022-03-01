@@ -2,14 +2,13 @@ package functions
 
 import (
 	"io/ioutil"
-	"log"
 	"strings"
 )
 
-func FileInit(banner string) map[int]string {
+func FileInit(banner string) (map[int]string, error) {
 	file, err := ioutil.ReadFile(banner)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	lines := strings.Split(string(file), "\n")
@@ -28,5 +27,5 @@ func FileInit(banner string) map[int]string {
 		art[i] = temp
 	}
 
-	return art
+	return art, nil
 }
