@@ -13,4 +13,39 @@ h1 {
     color: #edc298;
   }
 
+  .input-text {
+    color: white;
+    margin-right: 20px;
+  }
+
+  .banner-text {
+    color: white;
+  }
+
+  form {
+    text-align: center;
+    
+  }
   
+  .input {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    border: 3px solid #fff;
+    padding: 10px;
+  }
+
+  .banner {
+    color: white;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    border: 3px solid #fff;
+    padding: 10px;
+  }
+  
+  .output {
+    display: flex;
+    justify-content: center;
+  }
+ 

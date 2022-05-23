@@ -19,7 +19,7 @@
         </div>
 
         <div class="banner">
-            <label>Banner</label>
+            <label class="banner-text">Banner</label>
             <select name="banners" , id="banners" required>
           <option value="standard" {{ if eq .Banner "standard" }}selected{{ end }}>Standard</option>
           <option value="shadow" {{ if eq .Banner "shadow" }}selected{{ end }}>Shadow</option>
@@ -31,7 +31,7 @@
     </form>
 
     <div class="output">
-        <textarea>{{ .Ltext }}</textarea>
+        <textarea class="output-text">{{ .Ltext }}</textarea>
     </div>
 
 
